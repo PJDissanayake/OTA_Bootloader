@@ -6,6 +6,21 @@
 
 This is a **secure custom bootloader** implementing the XCP protocol over SPI2 slave for Over-The-Air (OTA) firmware updates. It includes persistent update requests from the application and a safe jump mechanism to the main firmware.
 
+## License
+
+This project is licensed under the **GNU General Public License v3.0** (GPL-3.0).
+
+```
+GNU GENERAL PUBLIC LICENSE
+Version 3, January 2026
+
+[Full GPL-3.0 text as provided]
+
+END OF TERMS AND CONDITIONS
+```
+
+See the full license text above or visit https://www.gnu.org/licenses/gpl-3.0.en.html for details.
+
 ## Features
 
 - **XCP protocol** over SPI2 slave for firmware flashing (CONNECT, PROGRAM, etc.)
@@ -80,14 +95,20 @@ Call when firmware update is needed (e.g., button press, received command).
 ## Debugging Tips
 
 - PA6 fast blink → invalid application (wrong stack or reset handler)
-- PA6 3 long blinks (in debug build) → jump successful
 - Use STM32CubeProgrammer to verify memory at `0x08008000`:
   - First word should be `0x20020000` (stack)
   - Second word ~`0x08009xxx` (reset handler)
 
-## License
+## Project Structure
 
-Provided AS-IS. Use at your own risk.
+```
+OTA_Bootloader/
+├── Core/
+│   ├── Src/ (main.c, spi.c, xcp.c, system_stm32f4xx.c)
+│   └── Inc/ (main.h, spi.h, xcp.h)
+├── STM32F407VETX_FLASH.ld   (modified for 32KB)
+└── README.md
+```
 
 ---
 
